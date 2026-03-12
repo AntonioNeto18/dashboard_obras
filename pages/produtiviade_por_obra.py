@@ -11,20 +11,21 @@ df = load_data()
 
 # Filtrar por mao de obra
 df_mao = df[df["tipo_insumo"] == "MAO DE OBRA"].dropna()
-st.title("Dashboard de produtividade")
-st.warning("Esta análise considera apenas registros de mão de obra. Esse filtro é importante para evitar comparações incoerentes com materiais ou equipamentos.")
 
 sidebar = st.sidebar
 
 sidebar.header("Filtro")
 obras_selecionadas = sidebar.multiselect(label="Obra", options=df_mao["nome_obra"].unique().tolist(), default=df_mao["nome_obra"].unique().tolist())
 
+st.title("Dashboard de produtividade")
+st.warning("Esta análise considera apenas registros de mão de obra. Esse filtro é importante para evitar comparações incoerentes com materiais ou equipamentos.")
+
 df_filtered = df_mao.copy()
 df_filtered = df_filtered[df_filtered["nome_obra"].isin(obras_selecionadas)]
 
 if len(df_filtered) > 0:
     ipd = df_filtered["ip_d"]
-    
+        
     # Métricas
     media = ipd.mean()
     mediana = ipd.median()
