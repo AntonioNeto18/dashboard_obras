@@ -70,8 +70,25 @@ with tab1:
             color="metricas",
             title="Média e mediana por obra"
         )
+
+        df_count = df_filtered.groupby(["nome_obra"])["ip_d"].agg(
+            registros="count"
+        ).reset_index()
+
+        fig_count = px.bar(
+            df_count,
+            x="nome_obra",
+            y="registros",
+            color="nome_obra",
+            title="Registros por obra"
+        )
+
         st.plotly_chart(fig_box, use_container_width=True)
-        st.plotly_chart(fig_bar, use_container_width=True)
+        
+        col1, col2 = st.columns(2)
+
+        col1.plotly_chart(fig_bar, use_container_width=True)
+        col2.plotly_chart(fig_count, use_container_width=True)
     else:
         st.error("Nenhuma obra foi selecionada")
 
