@@ -30,7 +30,7 @@ tipo_colunas = [
     {"coluna": "data", "tipo": "Quantitativa contínua", "descricao": "Data em que o registro da atividade foi realizado."},
     {"coluna": "qntd_acum", "tipo": "Quantitativa contínua", "descricao": "Quantidade acumulada da atividade executada ao longo do tempo."},
     {"coluna": "qs_acum", "tipo": "Quantitativa contínua", "descricao": "Quantidade acumulada de serviço realizado ao longo do tempo."},
-    {"coluna": "ip_d", "tipo": "Quantitativa contínua", "descricao": "Índice de produtividade diário da atividade."},
+    {"coluna": "ip_d", "tipo": "Quantitativa contínua", "descricao": "Índice de produtividade diário da atividade. (recursos usados/quantidade de serviço)"},
     {"coluna": "ip_acum", "tipo": "Quantitativa contínua", "descricao": "Índice de produtividade acumulado ao longo do tempo."},
     {"coluna": "elemento", "tipo": "Quantitativa discreta", "descricao": "Identificador numérico do elemento da obra associado à atividade."}
 ]
@@ -40,7 +40,7 @@ linhas = df.dropna().shape[0]
 colunas = df.dropna().shape[1]
 
 st.header(f"Base completa (Linhas: {linhas} | Colunas: {colunas})", text_alignment="center")
-st.dataframe(df.head())
+st.dataframe(df.dropna().sample(10))
 
 st.header("Tipo de variáveis", text_alignment="center")
 st.dataframe(pd.DataFrame(tipo_colunas))
