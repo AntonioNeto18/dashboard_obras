@@ -95,3 +95,49 @@ with tab1:
         col2.plotly_chart(fig_count, use_container_width=True)
     else:
         st.error("Nenhuma grupo foi selecionada")
+
+with tab2:
+    st.title("Conclusão")
+    st.warning("Esta análise considera apenas registros de mão de obra. Esse filtro é importante para evitar comparações incoerentes com materiais ou equipamentos.")
+    st.warning("O ip_d é a quantidade de recursos gastos dividido pela quantidade de serviço, quanto maior o ip_d, menos produtivo.")
+
+    df_conclusao = [
+        {
+            "grupo": "INSTALAÇÕES ELÉTRICAS",
+            "produtividade": "Muito alta (menor ip_d)",
+            "estabilidade": "Estável",
+            "analise": "Apresenta os menores valores de ip_d e baixa dispersão no boxplot, indicando uso eficiente de recursos e boa consistência na execução."
+        },
+        {
+            "grupo": "REVESTIMENTOS",
+            "produtividade": "Alta",
+            "estabilidade": "Muito estável",
+            "analise": "Possui ip_d baixo e pouca variação entre os registros, indicando boa produtividade e estabilidade operacional."
+        },
+        {
+            "grupo": "SERVIÇOS PRELIMINARES",
+            "produtividade": "Média",
+            "estabilidade": "Instável",
+            "analise": "Apresenta grande dispersão no boxplot, indicando variação significativa na produtividade entre diferentes registros."
+        },
+        {
+            "grupo": "VEDOS",
+            "produtividade": "Baixa",
+            "estabilidade": "Moderada",
+            "analise": "Possui valores de ip_d mais elevados em comparação aos grupos mais produtivos, indicando maior consumo de recursos por serviço."
+        },
+        {
+            "grupo": "FUNDAÇÕES",
+            "produtividade": "Muito baixa (maior ip_d)",
+            "estabilidade": "Muito instável",
+            "analise": "Apresenta os maiores valores de ip_d e diversos outliers, indicando alto consumo de recursos e grande variabilidade na execução."
+        }
+    ]
+
+    st.dataframe(df_conclusao, use_container_width=True)
+
+    st.success("""
+    Conclusão geral: Os grupos **INSTALAÇÕES ELÉTRICAS** e **REVESTIMENTOS** apresentam os melhores desempenhos,
+    combinando alta produtividade e maior estabilidade. Já **FUNDAÇÕES** apresenta o pior desempenho,
+    com maior consumo de recursos por quantidade de serviço e grande variabilidade nos registros.
+    """)
